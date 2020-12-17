@@ -5,5 +5,6 @@ Almost a pure Bash port scanner
 Execute ``bash scan.sh <ip-address>`` to run a scan.
 
 ## Todo
+* Replace ``sleep 1`` with something like ``read -t 1``
 * Add option to run a ping scan of a network
 * Add option to use /etc/services as port list
