@@ -1,7 +1,16 @@
 #!/usr/bin/env bash
+#
+# Usage: bash scan.sh --host <ip-address> --ports <port1,port2>
+# Author: Nasso Vikos <nas@vks.io>
 
-host=$1
-ports=(22 25 80 443 999)
+# Check that required parameters exist
+if [[ ! $1 ]] || [[ ! $2 ]] || [[ ! $3 ]] || [[ ! $4 ]]; then
+  echo "Usage: bash scan.sh --host <ip-address> --ports <port1,port2>"
+  exit 1
+fi
+
+host=$2
+ports=(${4//,/ })
 
 function probe {
 ( pid=$BASHPID;
@@ -12,7 +21,7 @@ function probe {
 }
 
 for port in "${ports[@]}"; do
-  probe 2> /dev/null
+  probe "$port" 2> /dev/null
   if [ $? == 1 ]; then
     echo "$port/tcp closed"
   else
