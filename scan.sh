@@ -5,6 +5,17 @@
 
 host=$2
 
+function split {
+  octet1=${host%*.*.*.*}
+  octet2=${host%*.*.*}
+  octet3=${host%*.*}
+  octet4=${host%*/*}
+  octet4=${octet4/"$octet3."}
+  octet3=${octet3/"$octet2."}
+  octet2=${octet2/"$octet1."}
+  mask=${host#*/}
+}
+
 function probe {
 ( pid=$BASHPID;
   (sleep 1; kill $pid) \
